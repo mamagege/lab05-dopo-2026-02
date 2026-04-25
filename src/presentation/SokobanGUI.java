@@ -17,6 +17,8 @@ public class SokobanGUI extends JFrame {
     private JMenuItem itemSalvar;
     private JMenuItem itemSalir;
 
+    private JPanel panelTablero;
+
     /**
      * Constructor para la interfaz donde se coloca el titulo.
      *
@@ -45,8 +47,11 @@ public class SokobanGUI extends JFrame {
         this.setSize(anchoVentana, altoVentana);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.getContentPane().setLayout(new BorderLayout());
 
         prepareElementsMenu();
+        prepareElementsBoard();
+        refresh();
     }
 
     /**
@@ -69,6 +74,29 @@ public class SokobanGUI extends JFrame {
 
         barraMenu.add(menuArchivo);
         this.setJMenuBar(barraMenu);
+    }
+
+    /**
+     * Inicializa el panel del tablero y lo agrega al centro de la ventana.
+     */
+    private void prepareElementsBoard() {
+        panelTablero = new JPanel(new BorderLayout());
+        panelTablero.setBackground(Color.DARK_GRAY);
+
+        JLabel etiqueta = new JLabel("Zona del Tablero de Juego", SwingConstants.CENTER);
+        etiqueta.setForeground(Color.WHITE);
+        panelTablero.add(etiqueta, BorderLayout.CENTER);
+
+        this.getContentPane().add(panelTablero, BorderLayout.CENTER);
+    }
+
+    /**
+     * Actualiza la vista del tablero.
+     */
+    public void refresh() {
+        // Aqui se dibujara el tablero inicial por omision en el futuro
+        panelTablero.revalidate();
+        panelTablero.repaint();
     }
 
     /**
