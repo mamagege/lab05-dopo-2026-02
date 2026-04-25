@@ -58,7 +58,7 @@ public class SokobanGUI extends JFrame {
 
         itemNuevo  = new JMenuItem("Nuevo");
         itemAbrir  = new JMenuItem("Abrir");
-        itemSalvar = new JMenuItem("Guardar");
+        itemSalvar = new JMenuItem("Salvar");
         itemSalir  = new JMenuItem("Salir");
 
         menuArchivo.add(itemNuevo);
@@ -91,6 +91,26 @@ public class SokobanGUI extends JFrame {
      */
     private void prepareActionsMenu() {
         itemSalir.addActionListener(e -> confirmarSalida());
+
+        itemAbrir.addActionListener(e -> {
+            JFileChooser selector = new JFileChooser();
+            int resultado = selector.showOpenDialog(this);
+            if (resultado == JFileChooser.APPROVE_OPTION) {
+                String nombre = selector.getSelectedFile().getName();
+                JOptionPane.showMessageDialog(this,
+                    "Funcion de Abrir en construccion. Archivo: " + nombre);
+            }
+        });
+
+        itemSalvar.addActionListener(e -> {
+            JFileChooser selector = new JFileChooser();
+            int resultado = selector.showSaveDialog(this);
+            if (resultado == JFileChooser.APPROVE_OPTION) {
+                String nombre = selector.getSelectedFile().getName();
+                JOptionPane.showMessageDialog(this,
+                    "Funcion de Salvar en construccion. Archivo: " + nombre);
+            }
+        });
     }
 
     /**
