@@ -23,6 +23,7 @@ public class SokobanGUI extends JFrame {
     private JMenuItem itemSalvar;
     private JMenuItem itemSalir;
     private JMenuItem itemColor;
+    private JMenuItem itemDimension;
 
     // ── Atributos de vista ───────────────────────────────────────────────────
     private JPanel  panelTablero;
@@ -96,7 +97,9 @@ public class SokobanGUI extends JFrame {
 
         JMenu menuOpciones = new JMenu("Opciones");
         itemColor = new JMenuItem("Cambiar Color de Piezas");
+        itemDimension = new JMenuItem("Cambiar Tamaño");
         menuOpciones.add(itemColor);
+        menuOpciones.add(itemDimension);
 
         barraMenu.add(menuArchivo);
         barraMenu.add(menuOpciones);
@@ -293,6 +296,29 @@ public class SokobanGUI extends JFrame {
             if (seleccionado != null) {
                 colorPiezas = seleccionado;
                 refresh();
+            }
+        });
+
+        itemDimension.addActionListener(e -> {
+            String anchoStr = JOptionPane.showInputDialog(this, "Ingrese el ancho del tablero:");
+            String altoStr = JOptionPane.showInputDialog(this, "Ingrese el alto del tablero:");
+
+            try {
+                if (anchoStr != null && altoStr != null) {
+                    int ancho = Integer.parseInt(anchoStr);
+                    int alto = Integer.parseInt(altoStr);
+                    if (ancho > 0 && alto > 0) {
+                        juego.newBoard(alto, ancho); // EasySokoban usa (height, width)
+                        enJuego = true;
+                        this.pack();
+                        refresh();
+                        this.requestFocusInWindow();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Las dimensiones deben ser positivas.");
+                    }
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Por favor ingrese números válidos.");
             }
         });
     }
