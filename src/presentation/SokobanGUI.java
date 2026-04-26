@@ -16,8 +16,10 @@ public class SokobanGUI extends JFrame {
     private JMenuItem itemAbrir;
     private JMenuItem itemSalvar;
     private JMenuItem itemSalir;
+    private JMenuItem itemColor;
 
-    private JPanel panelTablero;
+    private JPanel  panelTablero;
+    private Color   colorPiezas = Color.BLUE;
 
     /**
      * Constructor para la interfaz donde se coloca el titulo.
@@ -72,7 +74,12 @@ public class SokobanGUI extends JFrame {
         menuArchivo.addSeparator();
         menuArchivo.add(itemSalir);
 
+        JMenu menuOpciones = new JMenu("Opciones");
+        itemColor = new JMenuItem("Cambiar Color de Piezas");
+        menuOpciones.add(itemColor);
+
         barraMenu.add(menuArchivo);
+        barraMenu.add(menuOpciones);
         this.setJMenuBar(barraMenu);
     }
 
@@ -95,6 +102,7 @@ public class SokobanGUI extends JFrame {
      */
     public void refresh() {
         // Aqui se dibujara el tablero inicial por omision en el futuro
+        panelTablero.setBackground(colorPiezas);
         panelTablero.revalidate();
         panelTablero.repaint();
     }
@@ -137,6 +145,15 @@ public class SokobanGUI extends JFrame {
                 String nombre = selector.getSelectedFile().getName();
                 JOptionPane.showMessageDialog(this,
                     "Funcion de Salvar en construccion. Archivo: " + nombre);
+            }
+        });
+
+        itemColor.addActionListener(e -> {
+            Color seleccionado = JColorChooser.showDialog(
+                this, "Seleccione un color", colorPiezas);
+            if (seleccionado != null) {
+                colorPiezas = seleccionado;
+                refresh();
             }
         });
     }
