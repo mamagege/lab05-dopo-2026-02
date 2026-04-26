@@ -44,6 +44,9 @@ public class EasySokoban {
     private Position player;
     private int moveCount;
 
+    private final Set<Position> initialBoxes = new HashSet<>();
+    private Position initialPlayer;
+
     /**
      * Crea un tablero de 9 x 7 con generacion aleatoria al 10%.
      *
@@ -109,6 +112,11 @@ public class EasySokoban {
         placeGoals(rand, k);
         placeBoxes(rand, k);
         player = randomFree(rand);
+
+        // Guardar estado inicial para reinicio
+        initialBoxes.clear();
+        initialBoxes.addAll(boxes);
+        initialPlayer = player;
     }
 
     // ── Movimiento ──────────────────────────────────────────────────────────
@@ -158,6 +166,16 @@ public class EasySokoban {
         player = next;
         moveCount++;
         return true;
+    }
+
+    /**
+     * Restablece el nivel a su estado inicial.
+     */
+    public void restart() {
+        boxes.clear();
+        boxes.addAll(initialBoxes);
+        player = initialPlayer;
+        moveCount = 0;
     }
 
     // ── Consultas ───────────────────────────────────────────────────────────

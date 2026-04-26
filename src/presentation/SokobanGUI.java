@@ -255,11 +255,14 @@ public class SokobanGUI extends JFrame {
      */
     private void prepareActionsMenu() {
         itemNuevo.addActionListener(e -> {
-            reiniciarJuego();
+            nuevoJuego();
         });
 
         botonReiniciar.addActionListener(e -> {
-            reiniciarJuego();
+            juego.restart();
+            enJuego = true;
+            refresh();
+            this.requestFocusInWindow();
         });
 
         itemSalir.addActionListener(e -> confirmarSalida());
@@ -328,9 +331,9 @@ public class SokobanGUI extends JFrame {
     }
 
     /**
-     * Reinicia el estado del juego y actualiza la vista.
+     * Inicia un nuevo tablero aleatorio.
      */
-    private void reiniciarJuego() {
+    private void nuevoJuego() {
         juego   = EasySokoban.createDefault();
         enJuego = true;
         refresh();
